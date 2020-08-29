@@ -8,32 +8,40 @@ Vue.component('form-component', {
             <div>
                 <h1>Input Form</h1>
             </div>
+            <div v-if="!showPassword">
+                <div>
+                    <username-and-password-component
+                        @submit="submit"
+                    ></username-and-password-component>
+                </div>
+                <div>
+                    <a href="#" v-on:click="showPassword = true">Forgot Password</a>
+                </div>
+            </div>
+            <div v-if="showPassword">
+            <button v-on:click="showPassword = false">X</button>
+                <reset-password-component
+                    @submit="forgotPasswordSubmit"
+                ></reset-password-component>
+            </div>
             <div>
-                <div>
-                    <p>Username</p>
-                    <input type="text" v-model="username"/>
-                    {{ username }}
-                </div>
-                <div>
-                    <p>Password</p>
-                    <input type="text" v-model="password"/>
-                    {{ password }}
-                </div>
-                <div>
-                    <button v-on:click="click">Submit</button>
-                </div>
+                <p>Subscribe today</p>
             </div>
         </div>
     `,
     data(){
         return{
             username: "",
-            password: ""
+            password: "",
+            showPassword: false
         }
     },
     methods: {
-        click: function(){
-            console.log("HELLO WORLD")
+        submit: function(username, password){
+            console.log(username, password);
+        },
+        forgotPasswordSubmit: function(email){
+            console.log(email);
         }
     },
     component:{
