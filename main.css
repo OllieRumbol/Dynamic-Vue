@@ -1,0 +1,54 @@
+.blocker{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+}
+
+div{
+    display: block;
+}
+
+.dark{
+    opacity: 0.5;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}
+
+.loginContainer{
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    width: 455px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: white;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    overflow-y: auto;
+    z-index: 11;
+    flex-direction: column;
+}
+
+.loginInner{
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 404px;
+}
+
+.bar{
+    background-color: blue;
+    width: 100%;
+    display: inline-block;
+    position: relative;
+}

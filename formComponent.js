@@ -5,10 +5,13 @@ Vue.component('form-component', {
     template:
     `
         <div>
-            <div>
-                <h1>Input Form</h1>
-            </div>
-            <div v-if="!showPassword">
+            <div class="dark"></div>
+            <div class="loginContainer">
+                <div class="bar">
+                    <h1>Input Form</h1>
+                </div>
+                <div class="loginInner">
+                <div v-if="!showPassword">
                 <div>
                     <username-and-password-component
                         @submit="submit"
@@ -19,13 +22,17 @@ Vue.component('form-component', {
                 </div>
             </div>
             <div v-if="showPassword">
-            <button v-on:click="showPassword = false">X</button>
+                <button v-on:click="showPassword = false">X</button>
                 <reset-password-component
                     @submit="forgotPasswordSubmit"
                 ></reset-password-component>
             </div>
+            <p>Subscribe today</p>
+                
+                </div>
             <div>
-                <p>Subscribe today</p>
+        </div>
+            
             </div>
         </div>
     `,

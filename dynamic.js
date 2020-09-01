@@ -4,6 +4,7 @@ var body = document.getElementsByTagName('body')[0];
 //Create div tag for vue to bind too
 var div = document.createElement('div');
 div.id="app";
+div.className="blocker"
 div.innerHTML="<form-component></form-component>"
 body.appendChild(div);
 //Add vue script to the page
