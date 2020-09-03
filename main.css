@@ -10,6 +10,7 @@
 
 div{
     display: block;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .dark{
@@ -24,7 +25,7 @@ div{
     margin: auto;
     align-items: center;
     justify-content: center;
-    width: 455px;
+    width: 500px;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -47,8 +48,80 @@ div{
 }
 
 .bar{
-    background-color: blue;
+    background-color: #007bff;
     width: 100%;
     display: inline-block;
     position: relative;
+    color: wheat;
+}
+
+.failure{
+    text-align: center;
+    font-weight: lighter;
+    font-size: 15px;
+    color: #8a3b3b;
+    border: 1px solid #f9a1a4;
+    background-color: #fce3e3;
+    padding: 12px;
+    margin: 12px auto;
+    border-radius: 6px;
+    display: block;
+}
+
+.smallSpacer{
+    height: 5px;
+}
+
+.spacer{
+    height: 10px;
+}
+
+.largeSpacer{
+    height: 20px;
+}
+
+.extraLargeSpacer{
+    height: 30px;
+}
+
+.textBox{
+    width: 100%;
+    min-width: 300px;
+    height: 40px;
+    padding-left: 10px;
+    border-radius: 6px;
+    border: 1px #c5c3c3 solid;
+}
+
+.loginButton{
+    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    line-height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #007bff;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.subscribeLink{
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #007bff;
+    cursor: pointer;
+    font-size: x-large;
+    text-transform: uppercase;
+}
+
+.centreText{
+    text-align: center;
+}
+
+.line{
+    border-top: 1px solid gray;
 }

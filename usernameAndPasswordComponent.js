@@ -6,17 +6,17 @@ Vue.component('username-and-password-component', {
     `
     <div>
         <div>
-            <p>Username</p>
-            <input type="text" v-model="username"/>
+            <input type="text" class="textBox" v-model="username" placeholder="Email Address"/>
             {{ username }}
         </div>
+        <div class="extraLargeSpacer"></div>
         <div>
-            <p>Password</p>
-            <input type="text" v-model="password"/>
+            <input type="text" class="textBox" v-model="password" placeholder="Password"/>
             {{ password }}
         </div>
+        <div class="largeSpacer"></div>
         <div>
-            <button v-on:click="click">Submit</button>
+            <button v-on:click="click" class="loginButton">Submit</button>
         </div>
     </div>
     `,
