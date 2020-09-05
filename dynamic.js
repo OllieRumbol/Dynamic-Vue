@@ -1,24 +1,25 @@
-console.log("Working");
-//Get body element of html page
-var body = document.getElementsByTagName('body')[0];
-//Create div tag for vue to bind too
-var div = document.createElement('div');
-div.id = "app";
-div.className = "blocker"
-div.innerHTML = "<form-component></form-component>"
-body.appendChild(div);
-//Add vue script to the page
-var script = document.createElement('script');
-script.type = 'text/javascript';
-script.src = 'https://cdn.jsdelivr.net/npm/vue/dist/vue.js';
-script.id = 'vueScript';
-script.onload = function () {
-    Vue.component('form-component', {
-        props: {
+//Check if cookie exists
+if (getCookie("test") === "") {
+    //Get body element of html page
+    var body = document.getElementsByTagName('body')[0];
+    //Create div tag for vue to bind too
+    var div = document.createElement('div');
+    div.id = "app";
+    div.className = "blocker"
+    div.innerHTML = "<form-component></form-component>"
+    body.appendChild(div);
+    //Add vue script to the page
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://cdn.jsdelivr.net/npm/vue/dist/vue.js';
+    script.id = 'vueScript';
+    script.onload = function () {
+        Vue.component('form-component', {
+            props: {
 
-        },
-        template:
-        `
+            },
+            template:
+                `
             <div>
                 <div class="dark"></div>
                 <div class="loginContainer">
@@ -56,40 +57,39 @@ script.onload = function () {
                 </div>
             </div>
         `,
-        data() {
-            return {
-                username: "",
-                password: "",
-                showPassword: false,
-                showError: false,
-                errorMessage: "Incorrect username and password"
-            }
-        },
-        methods: {
-            submit: function (username, password) {
-                console.log(username, password);
+            data() {
+                return {
+                    showPassword: false,
+                    showError: false,
+                    errorMessage: "Incorrect username and password"
+                }
             },
-            forgotPasswordSubmit: function (email) {
-                console.log(email);
+            methods: {
+                submit: function (username, password) {
+                    console.log(username, password);
+                    setCookie("test", true, 1, getDomain());
+                },
+                forgotPasswordSubmit: function (email) {
+                    console.log(email);
+                },
+                close: function () {
+                    var appElement = document.getElementById('app');
+                    appElement.remove();
+                    var vueScript = document.getElementById('vueScript');
+                    vueScript.remove();
+                }
             },
-            close: function () {
-                var appElement = document.getElementById('app');
-                appElement.remove();
-                var vueScript = document.getElementById('vueScript');
-                vueScript.remove();
+            computed: {
+
             }
-        },
-        component: {
+        });
 
-        }
-    });
+        Vue.component('username-and-password-component', {
+            props: {
 
-    Vue.component('username-and-password-component', {
-        props: {
-
-        },
-        template:
-        `
+            },
+            template:
+                `
         <div>
             <input type="text" class="textBox" v-model="username" placeholder="Email Address"/>
             <div class="extraLargeSpacer"></div>
@@ -98,28 +98,28 @@ script.onload = function () {
             <button v-on:click="click" class="button">Submit</button>
         </div>
         `,
-        data() {
-            return {
-                username: "",
-                password: ""
+            data() {
+                return {
+                    username: "",
+                    password: ""
+                }
+            },
+            methods: {
+                click: function () {
+                    this.$emit("submit", this.username, this.password);
+                }
+            },
+            computed: {
+
             }
-        },
-        methods: {
-            click: function () {
-                this.$emit("submit", this.username, this.password);
-            }
-        },
-        component: {
+        });
 
-        }
-    });
+        Vue.component('reset-password-component', {
+            props: {
 
-    Vue.component('reset-password-component', {
-        props: {
-
-        },
-        template:
-        `
+            },
+            template:
+                `
         <div>
             <div class="extraLargeSpacer"></div>
             <input type="text" class="textBox" v-model="email" placeholder="Email Address"/>
@@ -127,35 +127,40 @@ script.onload = function () {
             <button v-on:click="click" class="button">Submit</button>
         </div>
         `,
-        data() {
-            return {
-                email: ""
+            data() {
+                return {
+                    email: ""
+                }
+            },
+            methods: {
+                click: function () {
+                    this.$emit("submit", this.email)
+                }
+            },
+            computed: {
+
             }
-        },
-        methods: {
-            click: function () {
-                this.$emit("submit", this.email)
-            }
-        },
-        component: {
+        });
 
-        }
-    });
+        var app = new Vue({
+            el: '#app',
+            data: {
 
-    var app = new Vue({
-        el: '#app',
-        data: {
-            message: "HELLO WORLD"
-        },
-        methods: {
+            },
+            methods: {
 
-        },
-    });
+            },
+        });
 
+    }
+    body.appendChild(script);
 }
-body.appendChild(script);
 
 //Cookies
+function getDomain() {
+    return window.location.hostname;
+}
+
 function setCookie(name, value, days, domain) {
     var d = new Date();
     d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -179,7 +184,7 @@ function getCookie(name) {
     return "";
 }
 
-function deleteCookie(name, domain){
+function deleteCookie(name, domain) {
     var date = new Date(1970);
     var expires = "expires=" + date.toUTCString();
     domain = ";domain=" + domain;
