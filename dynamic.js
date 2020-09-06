@@ -13,13 +13,14 @@ if (getCookie("test") === "") {
     script.type = 'text/javascript';
     script.src = 'https://cdn.jsdelivr.net/npm/vue/dist/vue.js';
     script.id = 'vueScript';
+    //Once vue script is loaded then add vue component
     script.onload = function () {
         Vue.component('form-component', {
             props: {
 
             },
             template:
-                `
+            `
             <div>
                 <div class="dark"></div>
                 <div class="loginContainer">
@@ -30,6 +31,12 @@ if (getCookie("test") === "") {
                         <div v-if="showError">
                             <div class="failure">
                                 {{ errorMessage }}
+                            </div>
+                            <div class="extraLargeSpacer"></div>                
+                        </div>
+                        <div v-if="showSuccess">
+                            <div class="success">
+                                {{ successMessage }}
                             </div>
                             <div class="extraLargeSpacer"></div>                
                         </div>
@@ -44,7 +51,7 @@ if (getCookie("test") === "") {
                         </div>
                         <div v-if="showPassword">
                             <div class="right">
-                                <button class="crossButton" v-on:click="showPassword = false">X</button>
+                                <button class="crossButton" v-on:click="closePassword">X</button>
                             </div>
                             <reset-password-component
                                 @submit="forgotPasswordSubmit"
@@ -52,31 +59,58 @@ if (getCookie("test") === "") {
                         </div>
                         <div class="largeSpacer"></div>
                         <div class="line"></div>
-                        <p class="subscribeLink centreText">Subscribe today</p> 
+                        <div class="largeSpacer"></div>
+                        <div class="centreText">
+                            <a href="#" class="subscribeLink centreText">Subscribe today</a> 
+                        </div>
                     </div>
                 </div>
             </div>
-        `,
+            `,
             data() {
                 return {
                     showPassword: false,
                     showError: false,
-                    errorMessage: "Incorrect username and password"
+                    errorMessage: "Incorrect username and password",
+                    showSuccess: false,
+                    successMessage: ""
                 }
             },
             methods: {
                 submit: function (username, password) {
                     console.log(username, password);
+                    this.errorMessage = false;
+                    if(username == "" || password == ""){
+                        this.errorMessage = "Username and password can not be empty";
+                        this.showError = true;
+                        return;
+                    }
+                    //Add check external stuff here
                     setCookie("test", true, 1, getDomain());
+                    this.close();
                 },
                 forgotPasswordSubmit: function (email) {
                     console.log(email);
+                    this.showError = false;
+                    if(email == ""){
+                        this.errorMessage = "Email can not be empty";
+                        this.showError = true;
+                        return;
+                    }
+                    //Add check external stuff here
+                    this.successMessage = "Password reset sent";
+                    this.showSuccess = true;
                 },
                 close: function () {
                     var appElement = document.getElementById('app');
                     appElement.remove();
                     var vueScript = document.getElementById('vueScript');
                     vueScript.remove();
+                },
+                closePassword: function(){
+                    this.showPassword = false;
+                    this.showError = false;
+                    this.showSuccess = false;
                 }
             },
             computed: {
@@ -89,15 +123,15 @@ if (getCookie("test") === "") {
 
             },
             template:
-                `
-        <div>
-            <input type="text" class="textBox" v-model="username" placeholder="Email Address"/>
-            <div class="extraLargeSpacer"></div>
-            <input type="text" class="textBox" v-model="password" placeholder="Password"/>
-            <div class="largeSpacer"></div>
-            <button v-on:click="click" class="button">Submit</button>
-        </div>
-        `,
+            `
+            <div>
+                <input type="text" class="textBox" v-model="username" placeholder="Email Address"/>
+                <div class="extraLargeSpacer"></div>
+                <input type="password" class="textBox" v-model="password" placeholder="Password"/>
+                <div class="largeSpacer"></div>
+                <button v-on:click="click" class="button">Submit</button>
+            </div>
+            `,
             data() {
                 return {
                     username: "",
@@ -119,14 +153,14 @@ if (getCookie("test") === "") {
 
             },
             template:
-                `
-        <div>
-            <div class="extraLargeSpacer"></div>
-            <input type="text" class="textBox" v-model="email" placeholder="Email Address"/>
-            <div class="largeSpacer"></div>
-            <button v-on:click="click" class="button">Submit</button>
-        </div>
-        `,
+             `
+            <div>
+                <div class="extraLargeSpacer"></div>
+                <input type="text" class="textBox" v-model="email" placeholder="Email Address"/>
+                <div class="largeSpacer"></div>
+                <button v-on:click="click" class="button">Submit</button>
+            </div>
+            `,
             data() {
                 return {
                     email: ""
@@ -151,7 +185,6 @@ if (getCookie("test") === "") {
 
             },
         });
-
     }
     body.appendChild(script);
 }

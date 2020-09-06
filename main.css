@@ -25,7 +25,6 @@ div{
     margin: auto;
     align-items: center;
     justify-content: center;
-    width: 500px;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -63,7 +62,18 @@ div{
     border: 1px solid #f9a1a4;
     background-color: #fce3e3;
     padding: 12px;
-    margin: 12px auto;
+    border-radius: 6px;
+    display: block;
+}
+
+.success{
+    text-align: center;
+    font-weight: lighter;
+    font-size: 15px;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    background-color: #d4edda;
+    padding: 12px;
     border-radius: 6px;
     display: block;
 }
