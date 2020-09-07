@@ -5,8 +5,6 @@ if (getCookie("test") === "") {
     //Create div tag for vue to bind too
     var div = document.createElement('div');
     div.id = "app";
-    div.className = "blocker"
-    div.innerHTML = "<form-component></form-component>"
     body.appendChild(div);
     //Add vue script to the page
     var script = document.createElement('script');
@@ -15,13 +13,76 @@ if (getCookie("test") === "") {
     script.id = 'vueScript';
     //Once vue script is loaded then add vue component
     script.onload = function () {
-        Vue.component('form-component', {
+        Vue.component('username-and-password-component', {
             props: {
 
             },
             template:
-            `
+                `
             <div>
+                <input type="text" class="textBox" v-model="username" placeholder="Email Address"/>
+                <div class="extraLargeSpacer"></div>
+                <input type="password" class="textBox" v-model="password" placeholder="Password"/>
+                <div class="largeSpacer"></div>
+                <button v-on:click="click" class="button">Submit</button>
+            </div>
+            `,
+            data() {
+                return {
+                    username: "",
+                    password: ""
+                }
+            },
+            methods: {
+                click: function () {
+                    this.$emit("submit", this.username, this.password);
+                }
+            },
+            computed: {
+
+            }
+        });
+
+        Vue.component('reset-password-component', {
+            props: {
+
+            },
+            template:
+                `
+            <div>
+                <div class="extraLargeSpacer"></div>
+                <input type="text" class="textBox" v-model="email" placeholder="Email Address"/>
+                <div class="largeSpacer"></div>
+                <button v-on:click="click" class="button">Submit</button>
+            </div>
+            `,
+            data() {
+                return {
+                    email: ""
+                }
+            },
+            methods: {
+                click: function () {
+                    this.$emit("submit", this.email)
+                }
+            },
+            computed: {
+
+            }
+        });
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                showPassword: false,
+                showError: false,
+                errorMessage: "Incorrect username and password",
+                showSuccess: false,
+                successMessage: ""
+            },
+            template:
+                `
+            <div class="blocker">
                 <div class="dark"></div>
                 <div class="loginContainer">
                     <div class="bar centreText">
@@ -67,20 +128,11 @@ if (getCookie("test") === "") {
                 </div>
             </div>
             `,
-            data() {
-                return {
-                    showPassword: false,
-                    showError: false,
-                    errorMessage: "Incorrect username and password",
-                    showSuccess: false,
-                    successMessage: ""
-                }
-            },
             methods: {
                 submit: function (username, password) {
                     console.log(username, password);
                     this.errorMessage = false;
-                    if(username == "" || password == ""){
+                    if (username == "" || password == "") {
                         this.errorMessage = "Username and password can not be empty";
                         this.showError = true;
                         return;
@@ -92,7 +144,7 @@ if (getCookie("test") === "") {
                 forgotPasswordSubmit: function (email) {
                     console.log(email);
                     this.showError = false;
-                    if(email == ""){
+                    if (email == "") {
                         this.errorMessage = "Email can not be empty";
                         this.showError = true;
                         return;
@@ -107,82 +159,11 @@ if (getCookie("test") === "") {
                     var vueScript = document.getElementById('vueScript');
                     vueScript.remove();
                 },
-                closePassword: function(){
+                closePassword: function () {
                     this.showPassword = false;
                     this.showError = false;
                     this.showSuccess = false;
                 }
-            },
-            computed: {
-
-            }
-        });
-
-        Vue.component('username-and-password-component', {
-            props: {
-
-            },
-            template:
-            `
-            <div>
-                <input type="text" class="textBox" v-model="username" placeholder="Email Address"/>
-                <div class="extraLargeSpacer"></div>
-                <input type="password" class="textBox" v-model="password" placeholder="Password"/>
-                <div class="largeSpacer"></div>
-                <button v-on:click="click" class="button">Submit</button>
-            </div>
-            `,
-            data() {
-                return {
-                    username: "",
-                    password: ""
-                }
-            },
-            methods: {
-                click: function () {
-                    this.$emit("submit", this.username, this.password);
-                }
-            },
-            computed: {
-
-            }
-        });
-
-        Vue.component('reset-password-component', {
-            props: {
-
-            },
-            template:
-             `
-            <div>
-                <div class="extraLargeSpacer"></div>
-                <input type="text" class="textBox" v-model="email" placeholder="Email Address"/>
-                <div class="largeSpacer"></div>
-                <button v-on:click="click" class="button">Submit</button>
-            </div>
-            `,
-            data() {
-                return {
-                    email: ""
-                }
-            },
-            methods: {
-                click: function () {
-                    this.$emit("submit", this.email)
-                }
-            },
-            computed: {
-
-            }
-        });
-
-        var app = new Vue({
-            el: '#app',
-            data: {
-
-            },
-            methods: {
-
             },
         });
     }
